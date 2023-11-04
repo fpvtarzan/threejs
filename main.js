@@ -8,7 +8,21 @@ const engelska = () => {
 
     // Create a basic perspective camera
     var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    camera.position.z = 4;
+
+    camera.position.x = 0.0;
+    camera.position.y = 2.5;
+    camera.position.z = -5.0;
+
+    camera.up.set( 
+        0.0,
+        1.0,
+        0.0
+    );
+    camera.lookAt(new THREE.Vector3(
+        0.0,
+        0.0,
+        0.0
+    ));
    
     // Create a renderer with Antialiasing
     var renderer = new THREE.WebGLRenderer({antialias:false});
@@ -52,16 +66,18 @@ const engelska = () => {
     var floor = function ()
     {
 
-        var floor_material = new THREE.MeshStandardMaterial( { color: "#FF00FF" } );
+        var floor_material = new THREE.MeshStandardMaterial( { color: "#F000333" } );
         var geom = new THREE.Geometry({});
         var widht = 3
         var hight = 7
 
-        geom.vertices.push(new THREE.Vector3(-widht/2, 0.0, -hight/2));
-        geom.vertices.push(new THREE.Vector3(widht/2, - 0.9, -hight/2));
-        geom.vertices.push(new THREE.Vector3(-widht/2, 0.5, hight/2));
-        geom.vertices.push(new THREE.Vector3(widht/2, 1.0, hight/2));
-        geom.faces.push( new THREE.Face3( 0, -1, -2 ) );
+        geom.vertices.push(new THREE.Vector3(-widht/2, 0, -hight/2));
+        geom.vertices.push(new THREE.Vector3(widht/2,  0, -hight/2));
+        geom.vertices.push(new THREE.Vector3(-widht/2, 0, hight/2));
+        geom.vertices.push(new THREE.Vector3(widht/2, 0, hight/2));
+        geom.faces.push( new THREE.Face3( 2, 1, 0 ) );
+        geom.faces.push( new THREE.Face3( 1, 2, 3 ) );
+        geom.computeVertexNormals ();
         const golvet = new THREE.Mesh( geom, floor_material );
         return golvet
        
@@ -74,5 +90,6 @@ const engelska = () => {
     light_colors.position.set( 1, 2, 0 );
 
     render();
+    
 }
 
